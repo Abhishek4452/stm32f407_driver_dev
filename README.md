@@ -1,4 +1,5 @@
 # stm32f407_driver_dev
 
 1. stm32f407_driver
-- description: contain all the macros which help in develping the driver faster and much  more efficient manner.
+- description: stm32f407xx.h  Contain MCU specific data 
+- description: stm32f407_driver.h file contain driver specific data
