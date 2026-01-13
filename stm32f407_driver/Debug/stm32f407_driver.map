@@ -65,6 +65,42 @@ Discarded input sections
  .text          0x00000000        0x0 ./Src/main.o
  .data          0x00000000        0x0 ./Src/main.o
  .bss           0x00000000        0x0 ./Src/main.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .group         0x00000000        0xc ./Src/spi_driver.o
+ .text          0x00000000        0x0 ./Src/spi_driver.o
+ .data          0x00000000        0x0 ./Src/spi_driver.o
+ .bss           0x00000000        0x0 ./Src/spi_driver.o
+ .text.SPI_periClockControl
+                0x00000000       0xe0 ./Src/spi_driver.o
+ .debug_info    0x00000000      0x302 ./Src/spi_driver.o
+ .debug_abbrev  0x00000000      0x101 ./Src/spi_driver.o
+ .debug_aranges
+                0x00000000       0x20 ./Src/spi_driver.o
+ .debug_rnglists
+                0x00000000       0x14 ./Src/spi_driver.o
+ .debug_macro   0x00000000       0x95 ./Src/spi_driver.o
+ .debug_macro   0x00000000      0xad8 ./Src/spi_driver.o
+ .debug_macro   0x00000000       0x22 ./Src/spi_driver.o
+ .debug_macro   0x00000000       0x8e ./Src/spi_driver.o
+ .debug_macro   0x00000000       0x51 ./Src/spi_driver.o
+ .debug_macro   0x00000000      0x103 ./Src/spi_driver.o
+ .debug_macro   0x00000000       0x6a ./Src/spi_driver.o
+ .debug_macro   0x00000000      0x1df ./Src/spi_driver.o
+ .debug_macro   0x00000000      0x33a ./Src/spi_driver.o
+ .debug_macro   0x00000000       0xc4 ./Src/spi_driver.o
+ .debug_line    0x00000000      0x446 ./Src/spi_driver.o
+ .debug_str     0x00000000     0x5525 ./Src/spi_driver.o
+ .comment       0x00000000       0x44 ./Src/spi_driver.o
+ .debug_frame   0x00000000       0x38 ./Src/spi_driver.o
+ .ARM.attributes
+                0x00000000       0x2e ./Src/spi_driver.o
  .group         0x00000000        0xc ./Src/stm32f407_driver.o
  .group         0x00000000        0xc ./Src/stm32f407_driver.o
  .group         0x00000000        0xc ./Src/stm32f407_driver.o
@@ -98,7 +134,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Src/stm32f407_driver.o
  .debug_macro   0x00000000       0x6a ./Src/stm32f407_driver.o
  .debug_macro   0x00000000      0x1df ./Src/stm32f407_driver.o
- .debug_macro   0x00000000      0x30a ./Src/stm32f407_driver.o
+ .debug_macro   0x00000000      0x33a ./Src/stm32f407_driver.o
  .debug_macro   0x00000000       0xc4 ./Src/stm32f407_driver.o
  .group         0x00000000        0xc ./Src/syscalls.o
  .group         0x00000000        0xc ./Src/syscalls.o
@@ -545,6 +581,7 @@ LOAD /opt/st/stm32cubeide_2.0.0/plugins/com.st.stm32cube.ide.mcu.externaltools.g
 LOAD /opt/st/stm32cubeide_2.0.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.100.202509120712/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m/nofp/crtbegin.o
 LOAD /opt/st/stm32cubeide_2.0.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.linux64_1.0.100.202509120712/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
 LOAD ./Src/main.o
+LOAD ./Src/spi_driver.o
 LOAD ./Src/stm32f407_driver.o
 LOAD ./Src/syscalls.o
 LOAD ./Src/sysmem.o
@@ -876,30 +913,30 @@ LOAD /opt/st/stm32cubeide_2.0.0/plugins/com.st.stm32cube.ide.mcu.externaltools.g
  .debug_rnglists
                 0x0000006c       0x19 ./Startup/startup_stm32f407vgtx.o
 
-.debug_macro    0x00000000     0x13ff
- .debug_macro   0x00000000       0x86 ./Src/main.o
- .debug_macro   0x00000086      0xad8 ./Src/main.o
- .debug_macro   0x00000b5e       0x22 ./Src/main.o
- .debug_macro   0x00000b80       0x8e ./Src/main.o
- .debug_macro   0x00000c0e       0x51 ./Src/main.o
- .debug_macro   0x00000c5f      0x103 ./Src/main.o
- .debug_macro   0x00000d62       0x6a ./Src/main.o
- .debug_macro   0x00000dcc      0x1df ./Src/main.o
- .debug_macro   0x00000fab      0x30a ./Src/main.o
- .debug_macro   0x000012b5       0xc4 ./Src/main.o
- .debug_macro   0x00001379       0x86 ./Src/stm32f407_driver.o
+.debug_macro    0x00000000     0x1449
+ .debug_macro   0x00000000       0x91 ./Src/main.o
+ .debug_macro   0x00000091      0xad8 ./Src/main.o
+ .debug_macro   0x00000b69       0x22 ./Src/main.o
+ .debug_macro   0x00000b8b       0x8e ./Src/main.o
+ .debug_macro   0x00000c19       0x51 ./Src/main.o
+ .debug_macro   0x00000c6a      0x103 ./Src/main.o
+ .debug_macro   0x00000d6d       0x6a ./Src/main.o
+ .debug_macro   0x00000dd7      0x1df ./Src/main.o
+ .debug_macro   0x00000fb6      0x33a ./Src/main.o
+ .debug_macro   0x000012f0       0xc4 ./Src/main.o
+ .debug_macro   0x000013b4       0x95 ./Src/stm32f407_driver.o
 
-.debug_line     0x00000000      0xdfd
- .debug_line    0x00000000      0x428 ./Src/main.o
- .debug_line    0x00000428      0x95a ./Src/stm32f407_driver.o
- .debug_line    0x00000d82       0x7b ./Startup/startup_stm32f407vgtx.o
+.debug_line     0x00000000      0xe31
+ .debug_line    0x00000000      0x442 ./Src/main.o
+ .debug_line    0x00000442      0x974 ./Src/stm32f407_driver.o
+ .debug_line    0x00000db6       0x7b ./Startup/startup_stm32f407vgtx.o
 
-.debug_str      0x00000000     0x550d
- .debug_str     0x00000000     0x550d ./Src/main.o
-                               0x53cc (size before relaxing)
- .debug_str     0x0000550d        0x0 ./Src/stm32f407_driver.o
-                               0x562e (size before relaxing)
- .debug_str     0x0000550d        0x0 ./Startup/startup_stm32f407vgtx.o
+.debug_str      0x00000000     0x562f
+ .debug_str     0x00000000     0x562f ./Src/main.o
+                               0x54ee (size before relaxing)
+ .debug_str     0x0000562f        0x0 ./Src/stm32f407_driver.o
+                               0x5750 (size before relaxing)
+ .debug_str     0x0000562f        0x0 ./Startup/startup_stm32f407vgtx.o
                                  0x96 (size before relaxing)
 
 .comment        0x00000000       0x43

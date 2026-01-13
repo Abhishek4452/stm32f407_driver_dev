@@ -77,6 +77,7 @@
 #define SPI2_BASEADDR            (PERI_ADDR+0x3800)
 #define SPI3_BASEADDR            (PERI_ADDR+0x3C00)
 
+
 #define USART2_BASEADDR          (PERI_ADDR+0x4400)
 #define USART3_BASEADDR          (PERI_ADDR+0x4800)
 #define UART4_BASEADDR           (PERI_ADDR+0x4C00)
@@ -91,7 +92,7 @@
 #define USART6_BASEADDR			  (APB2_PERI_ADDR+0x1400)
 
 #define SPI1_BASEADDR			  (APB2_PERI_ADDR+0x3000)
-
+#define SPI4_BASEADDR             (APB2_PERI_ADDR+0x3400)
 #define SYSCFG_BASEADDR			  (APB2_PERI_ADDR+0x3800)
 
 #define EXTI_BASEADDR			  (APB2_PERI_ADDR+0x3C00)
@@ -147,7 +148,6 @@ typedef struct
 	volatile int32_t SSCGR; 	 //				RCC spread spectrum clock generation register				    offset = 0x80
 	volatile int32_t PLLI2SCFGR; //				RCC PLLI2S configuration register 							    offset = 0x84
 
-
 }RCC_RegDef_t;
 
 
@@ -164,6 +164,7 @@ typedef struct
 	volatile uint32_t PR;         //                    offset -- 0x14
 
 }EXTI_RegDef_t;
+
 
 // ************************************************ SYSCFG REGISTER *************************************************
 typedef struct{
@@ -208,10 +209,7 @@ typedef struct{
 #define I2C2_PCLK_EN() 					(RCC->APB1ENR |= (1<<22))
 #define I2C3_PCLK_EN()					(RCC->APB1ENR |= (1<<23))
 
-// ************************************************ CLK ENABLE MACRO FOR SPIx ***********************************************************
-#define SPI2_PCLK_EN()                  (RCC->APB1ENR |= (1<<14))
-#define SPI3_PCLK_EN()                  (RCC->APB1ENR |= (1<<15))
-#define SPI1_PCLK_EN()					(RCC->APB2ENR |=  (1<<12))
+
 // ************************************************ CLK ENABLE MACRO FOR USARTx ***********************************************************
 #define USART2_PCLK_EN()					(RCC->APB1ENR |= (1<<17))
 #define USART3_PCLK_EN()					(RCC->APB1ENR |= (1<<18))
@@ -237,10 +235,7 @@ typedef struct{
 #define GPIOG_PCLK_DI()					(RCC->AHB1ENR &= ~(1<<6))
 #define GPIOH_PCLK_DI()					(RCC->AHB1ENR &= ~(1<<7))
 #define GPIOI_PCLK_DI()					(RCC->AHB1ENR &= ~(1<<8))
-// ------------------------------------------------- CLK DISABLE FOR SPIx peripheral -----------------------------------------------------------------
-#define SPI2_PCLK_DI()                  (RCC->APB1ENR &= ~(1<<14))
-#define SPI3_PCLK_DI()                  (RCC->APB1ENR &= ~(1<<15))
-#define SPI1_PCLK_DI()					(RCC->APB2ENR &= ~(1<<12))
+
 // ************************************************ CLK DISABLE MACRO FOR SYSCFG ***********************************************************
 #define SYSCFG_PCLK_DI() 					(RCC->APB2ENR &= ~(1<<14))
 /*
@@ -291,9 +286,41 @@ typedef struct{
 #define GPIO_PIN_SET     SET
 #define GPIO_PIN_RESET   RESET
 
+// ******************************************************* S P I { SERIAL PERIPHERAL INTERFACE } **************************************
 
+// register defination for the SPI
+ typedef struct
+ {
+	 volatile uint32_t CR1;						//    control register 1     	 offset - 0x00
+	 volatile uint32_t CR2;						//    control register 2     	 offset - 0x04
+	 volatile uint32_t SR;						//    status register        	 offset - 0x08
+	 volatile uint32_t DR;				   		//    data register           	 offset - 0x0c
+	 volatile uint32_t CRCPR;					//    CRC polynomial register    offset - 0x10
+	 volatile uint32_t RXCRCR;					//    RX CRC register       	 offset - 0x14
+	 volatile uint32_t TXCRCR;					//    TX CRC register            offset - 0x18
+	 volatile uint32_t I2SCFGR;					//    I2S configuration registe  offset - 0x1c
+	 volatile uint32_t I2SPR;					//    I2S prescaler register     offset - 0x20
+ }SPI_RegDef_t;
+
+  //--------------------------------------------   PERIPHERAL DEFINATION ----------------------------------------------
+#define SPI1                                ((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2                                ((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3                                ((SPI_RegDef_t*)SPI3_BASEADDR)
+#define SPI4                                ((SPI_RegDef_t*)SPI4_BASEADDR)
+
+ // ************************************************ CLK ENABLE MACRO FOR SPIx ***********************************************************
+ #define SPI2_PCLK_EN()                  (RCC->APB1ENR |= (1<<14))
+ #define SPI3_PCLK_EN()                  (RCC->APB1ENR |= (1<<15))
+ #define SPI1_PCLK_EN()					 (RCC->APB2ENR |= (1<<12))
+#define  SPI4_PCLK_EN()                  (RCC->APB2ENR |= (1<<13)) // please check further, in my data sheet it was reserved
+ // ------------------------------------------------- CLK DISABLE FOR SPIx peripheral -----------------------------------------------------------------
+ #define SPI2_PCLK_DI()                  (RCC->APB1ENR &= ~(1<<14))
+ #define SPI3_PCLK_DI()                  (RCC->APB1ENR &= ~(1<<15))
+ #define SPI1_PCLK_DI()					(RCC->APB2ENR &= ~(1<<12))
+#define  SPI4_PCLK_DI()                  (RCC->APB2ENR &= ~(1<<13))
 
 #include "stm32f407_driver.h"
+#include "stm32f407_spi_driver.h"
 #endif /* STM32F407XX_H_ */
 
 
