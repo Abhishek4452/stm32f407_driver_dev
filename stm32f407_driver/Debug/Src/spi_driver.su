@@ -1,1 +1,2 @@
 ../Src/spi_driver.c:15:6:SPI_periClockControl	16	static
+../Src/spi_driver.c:52:6:SPI_Init	24	static
