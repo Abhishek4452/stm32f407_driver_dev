@@ -20,45 +20,76 @@
  ******************************************************************************
  */
 
-
+#include <string.h>
 #include "stm32f407xx.h"
+#include "stm32f407_driver.h"
+#include "stm32f407_spi_driver.h"
+// writing code for the SPI protocol validation .
+// no slave is needed for the verifiying the code
 
-void delay(void){
-	for(uint32_t i=0; i< 500000/2;i++);
+/* for SPI2
+ *  NSS  -> PB12
+ *  SCK  -> PB13
+ *  MISO -> PB14
+ *  MOSI -> PB15
+ *  ALT MODE -> 5
+ */
+void SPI_GPIOInits(void){
+	GPIO_Handle_t SPIPins;
+	SPIPins.pGPIOx = GPIOB;
+	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALTFN;
+	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 5;
+	SPIPins.GPIO_PinConfig.GPIO_OPType = GPIO_OP_TYPE_PP;
+	SPIPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+
+	// set the SCLK
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
+	GPIO_Init(&SPIPins);
+
+	// MOSI
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15;
+	GPIO_Init(&SPIPins);
+
+	//MISO
+	//SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
+	//GPIO_Init(&SPIPins);
+
+	//NSS
+	//SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
+	//GPIO_Init(&SPIPins);
+
 }
-int main(void)
-{
-	GPIO_Handle_t GpioLed,GpioButton;
-	// for the LED
-	GpioLed.pGPIOx = GPIOD;
-	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
-	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
-	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
-	GpioLed.GPIO_PinConfig.GPIO_OPType = GPIO_OP_TYPE_PP;
-	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
 
-	GPIO_periClockControl(GPIOD,ENABLE); // enabling the clock control
+void SPI2_Inits(void){
+	SPI_Handle_t SPIHandle2;
 
-	GPIO_Init(&GpioLed);
+	SPIHandle2.pSPIx = SPI2;
+	SPIHandle2.SPIConfig.SPI_BusConfig = SPI_BUS_CONFIG_FD;
+	SPIHandle2.SPIConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;
+	SPIHandle2.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV_BY_2;
+	SPIHandle2.SPIConfig.SPI_DFF = SPI_DFF_8_BIT;
+	SPIHandle2.SPIConfig.SPI_CPHA = SPI_CPOL_LOW;
+	SPIHandle2.SPIConfig.SPI_CPOL = SPI_CPHA_LOW;
+	SPIHandle2.SPIConfig.SPI_SSM = SPI_SSM_EN; //for NSS
 
-	// button on board
-	GpioButton.pGPIOx = GPIOA;
-	GpioButton.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
-	GpioButton.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN;
-	GpioButton.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
-	GpioButton.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
-	GPIO_periClockControl(GPIOA,ENABLE); // enabling the clock control
-	GPIO_Init(&GpioButton);
+	SPI_Init(&SPIHandle2);
 
-
-	while(1){
-		delay(); // help also in dealing with the debouncing of the button
-		if(GPIO_ReadFromInputPin(GPIOA,GPIO_PIN_NO_0)){
-			//printf(" loop executing \n");
-			GPIO_ToggleOutputPin(GPIOD,GPIO_PIN_NO_12);
-			delay(); // help also in dealing with the debouncing of the button
-		}
-	}
-
-return 0;
 }
+
+
+
+int main(void){
+char user_data[] = "hello World";
+	SPI_GPIOInits(); // initialize the GPIO pin to behave the SPI2 pins
+
+	SPI2_Inits(); //initialize the SPI2 peripheral parameters
+
+	SPI_SendData(SPI2,(uint8_t*) user_data, strlen(user_data));
+	while(1);
+
+	return 0;
+}
+
+
+

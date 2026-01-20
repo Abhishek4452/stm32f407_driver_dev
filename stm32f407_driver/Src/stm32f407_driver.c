@@ -97,7 +97,12 @@ void GPIO_periClockControl(GPIO_RegDef_t *pGPIOx,uint8_t ENOrDI){
  * @Note    	- NONE
  *
  */
-void GPIO_Init(GPIO_Handle_t *pGPIOHandle){ // pGPIOHandle is given by the user
+void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
+	// enable the PERIPHERAL CLOCK FOR USER
+
+	GPIO_periClockControl(pGPIOHandle->pGPIOx, ENABLE);
+
+	// pGPIOHandle is given by the user
 	uint32_t temp =0; // temp temporarily holds the correctly shifted bit pattern for ONE pin before it is written into the hardware register.
 	// pGPIOHandle give us the base address. to access the gpio
 
@@ -383,9 +388,7 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber,uint8_t IRQPriority,uint8_t EnOrD
 					// program ISER 2 register
 			*NVIC_ISER3 &= ~(1<<(IRQNumber%64));
 		}
-
 	}
-
 }
 
 /*/***************************************************************************************************************************

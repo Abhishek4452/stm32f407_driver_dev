@@ -333,42 +333,49 @@ typedef struct{
 #define SPI_CR1_MSTR                   2
 #define SPI_CR1_BR                   3
 #define SPI_CR1_SPE                   6
-#define SPI_CR1_LSBFIRST             7
-#define SPI_CR1_SSI                   8
-#define SPI_CR1_SSM                   9
-#define SPI_CR1_RXONLY                 10
-#define SPI_CR1_DFF                    11
-#define SPI_CR1_CRCNEXT                12
-#define SPI_CR1_CRCEN                13
-#define SPI_CR1_BIDIOE                 14
+#define SPI_CR1_LSBFIRST               	   7
+#define SPI_CR1_SSI                  	   8
+#define SPI_CR1_SSM                  	   9
+#define SPI_CR1_RXONLY                	   10
+#define SPI_CR1_DFF                        11
+#define SPI_CR1_CRCNEXT                    12
+#define SPI_CR1_CRCEN                      13
+#define SPI_CR1_BIDIOE                     14
 #define SPI_CR1_BIDIMODE                   15
 
  /*
-  *    BIT POSITION DEFINATION SPI_SR
+  *    BIT POSITION DEFINATION SPI_SR (STATUS REGISTER )
   */
 #define SPI_SR_RXNE                        0
-#define SPI_SR_TXE                       1
-#define SPI_SR_CHSIDE                        2
-#define SPI_SR_UDR                        3
+#define SPI_SR_TXE                         1
+#define SPI_SR_CHSIDE                      2
+#define SPI_SR_UDR                         3
 #define SPI_SR_CRCERR                      4
 #define SPI_SR_MODF                        5
-#define SPI_SR_OVR                      6
- #define SPI_SR_BSY                        7
-#define SPI_SR_FRE                        8
+#define SPI_SR_OVR                         6
+#define SPI_SR_BSY                         7
+#define SPI_SR_FRE                         8
 
  /*
   *    BIT POSITION DEFINATION SPI_CR2
   */
 #define SPI_CR2_RXNE                        0
-#define SPI_CR2_TXE                       1
-#define SPI_CR2_CHSIDE                        2
-#define SPI_CR2_UDR                        3
+#define SPI_CR2_TXE                         1
+#define SPI_CR2_CHSIDE                      2
+#define SPI_CR2_UDR                         3
 #define SPI_CR2_CRCERR                      4
 #define SPI_CR2_MODF                        5
-#define SPI_CR2_OVR                      6
+#define SPI_CR2_OVR                         6
  #define SPI_CR2_BSY                        7
-#define SPI_CR2_FRE                        8
+#define SPI_CR2_FRE                         8
 
+/*
+ *  RESET THE SPI
+ */
+#define SPI1_REG_RESET()  						do{ (RCC->APB2RSTR |= (1<<12)); (RCC->APB2RSTR &= ~(1<<12));}while(0)
+#define SPI2_REG_RESET()  						do{ (RCC->APB1RSTR |= (1<<14)); (RCC->APB1RSTR &= ~(1<<14));}while(0)
+#define SPI3_REG_RESET()  						do{ (RCC->APB1RSTR |= (1<<15)); (RCC->APB1RSTR &= ~(1<<15));}while(0)
+//#define SPI4_REG_RESET()  						do{ (RCC->APB2RSTR |= (1<<12)); (RCC->APB2RSTR &= ~(1<<12);  );}while(0)
 
 #include "stm32f407_driver.h"
 #include "stm32f407_spi_driver.h"
