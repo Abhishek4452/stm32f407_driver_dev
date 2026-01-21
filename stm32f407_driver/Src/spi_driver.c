@@ -143,7 +143,7 @@ void SPI_SendData(SPI_RegDef_t *pSPIx,uint8_t *pTxBuffer,uint32_t Len){
 			// 8 bit format
 			pSPIx->DR = *pTxBuffer;
 			Len--;
-			*pTxBuffer++;
+			pTxBuffer++;
 		}
 	}
 }
@@ -158,6 +158,13 @@ void SPI_IRQHandling(SPI_Handle_t *pHandle);
  * other peripheral control APIs
  */
 
-
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx,uint8_t EnOrDi){
+	if(EnOrDi == ENABLE){
+		pSPIx->CR1 |= (1<<SPI_CR1_SPE); // enable the SPE (SPI peripheral enable )bit
+	}
+	else{
+		pSPIx->CR1 &= ~(1<<SPI_CR1_SPE);
+	}
+}
 
 

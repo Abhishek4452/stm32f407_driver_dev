@@ -85,6 +85,8 @@ char user_data[] = "hello World";
 
 	SPI2_Inits(); //initialize the SPI2 peripheral parameters
 
+	SPI_PeripheralControl(SPI2,ENABLE); // enable the SPI enable bit
+
 	SPI_SendData(SPI2,(uint8_t*) user_data, strlen(user_data));
 	while(1);
 
