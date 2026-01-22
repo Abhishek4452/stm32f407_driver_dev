@@ -167,4 +167,11 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx,uint8_t EnOrDi){
 	}
 }
 
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx,uint8_t EnOrDi){
+	if(EnOrDi == ENABLE){
+		pSPIx->CR1 |= (1<<SPI_CR1_SSI); // enable the SPE (SPI peripheral enable )bit
+	}
+	else{
+		pSPIx->CR1 &= ~(1<<SPI_CR1_SSI);
 
+}

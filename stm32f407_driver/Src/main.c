@@ -87,6 +87,9 @@ char user_data[] = "hello World";
 
 	SPI_PeripheralControl(SPI2,ENABLE); // enable the SPI enable bit
 
+	// this makes NSS signal internally high
+	SSI_PeripheralControl(SPI2,ENABLE); // enable the SSI bit
+
 	SPI_SendData(SPI2,(uint8_t*) user_data, strlen(user_data));
 	while(1);
 
