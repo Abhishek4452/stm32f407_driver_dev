@@ -359,15 +359,15 @@ typedef struct{
  /*
   *    BIT POSITION DEFINATION SPI_CR2
   */
-#define SPI_CR2_RXNE                        0
-#define SPI_CR2_TXE                         1
-#define SPI_CR2_CHSIDE                      2
-#define SPI_CR2_UDR                         3
-#define SPI_CR2_CRCERR                      4
-#define SPI_CR2_MODF                        5
-#define SPI_CR2_OVR                         6
- #define SPI_CR2_BSY                        7
-#define SPI_CR2_FRE                         8
+#define SPI_CR2_RXDMAEN                       0
+#define SPI_CR2_TXDMAEN                       1
+#define SPI_CR2_SSOE                          2
+#define SPI_CR2_RESERVED1                     3
+#define SPI_CR2_FRF                           4
+#define SPI_CR2_ERRIE                         5
+#define SPI_CR2_RXNEIE                        6
+#define SPI_CR2_TXEIE                         7
+#define SPI_CR2_RESERVED2                     8
 
 /*
  *  RESET THE SPI
