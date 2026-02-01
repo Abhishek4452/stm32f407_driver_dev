@@ -204,10 +204,6 @@ typedef struct{
 #define GPIOH_PCLK_EN()					(RCC->AHB1ENR |= (1<<7))
 #define GPIOI_PCLK_EN()					(RCC->AHB1ENR |= (1<<8))
 
-// ************************************************ CLK ENABLE MACRO FOR I2Cx ***********************************************************
-#define I2C1_PCLK_EN()					(RCC->APB1ENR |= (1<<21))
-#define I2C2_PCLK_EN() 					(RCC->APB1ENR |= (1<<22))
-#define I2C3_PCLK_EN()					(RCC->APB1ENR |= (1<<23))
 
 
 // ************************************************ CLK ENABLE MACRO FOR USARTx ***********************************************************
@@ -221,10 +217,6 @@ typedef struct{
 #define SYSCFG_PCLK_EN() 					(RCC->APB2ENR |= (1<<14))
 
 
-// ------------------------------------------------- CLK DISABLE FOR I2Cx peripheral -----------------------------------------------------------------
-#define I2C1_PCLK_DI()					(RCC->APB1ENR &= ~(1<<21))
-#define I2C2_PCLK_DI() 					(RCC->APB1ENR &= ~(1<<22))
-#define I2C3_PCLK_DI()					(RCC->APB1ENR &= ~(1<<23))
 // ------------------------------------------------- CLK DISABLE FOR GPIOx peripheral -----------------------------------------------------------------
 #define GPIOA_PCLK_DI()                 (RCC->AHB1ENR &= ~(1<<0))
 #define GPIOB_PCLK_DI()					(RCC->AHB1ENR &= ~(1<<1))
@@ -286,7 +278,9 @@ typedef struct{
 #define GPIO_PIN_SET     SET
 #define GPIO_PIN_RESET   RESET
 
+// ===================================================================================================================================================
 // ******************************************************* S P I { SERIAL PERIPHERAL INTERFACE } **************************************
+// ===================================================================================================================================================
 
 // register defination for the SPI
  typedef struct
@@ -377,8 +371,88 @@ typedef struct{
 #define SPI3_REG_RESET()  						do{ (RCC->APB1RSTR |= (1<<15)); (RCC->APB1RSTR &= ~(1<<15));}while(0)
 //#define SPI4_REG_RESET()  						do{ (RCC->APB2RSTR |= (1<<12)); (RCC->APB2RSTR &= ~(1<<12);  );}while(0)
 
+
+
+
+// ===================================================================================================================================================
+//                                                          I 2 C
+// ===================================================================================================================================================
+
+// Register defination for the I 2 C communication
+typedef struct{
+ 	volatile uint32_t CR1;           // CONTROL REGISTER 1     offset - 0x00
+ 	volatile uint32_t CR2;           // CONTROL REGISTER 2     offset - 0x04
+ 	volatile uint32_t OAR1;          // OWN ADDRESS REGISTER1  offset - 0x08
+ 	volatile uint32_t OAR2;          // OWN ADDRESS REGISTER2  offset - 0x0c
+ 	volatile uint32_t DR;            // DATA REGISTER          offset - 0x10
+ 	volatile uint32_t SR1;           // STATUS REGISTER		   offset - 0x14
+ 	volatile uint32_t SR2;           // STATUS REGISTER2	   offset - 0x18
+ 	volatile uint32_t CCR;           // CLOCK CONTROL REGISTER offset - 0x1c
+ 	volatile uint32_t TRISE;         // offset - 0x20
+ 	volatile uint32_t FLTR;          // offset - 0x24
+
+ }I2C_RegDef_t;
+
+#define I2C_CR1_PE                    0
+#define I2C_CR1_SMBUS                 1
+#define I2C_CR1_SMBTYPE               3
+#define I2C_CR1_ENARP                 4
+#define I2C_CR1_ENPEC                 5
+#define I2C_CR1_ENGC                  6
+#define I2C_CR1_NOSTRETCH             7
+#define I2C_CR1_START                 8
+#define I2C_CR1_STOP                  9
+#define I2C_CR1_ACK                   10
+#define I2C_CR1_POS                   11
+#define I2C_CR1_PEC                   12
+#define I2C_CR1_ALERT                 13
+#define I2C_CR1_SWRST                 15
+
+#define I2C_CR2_ITERREN               8
+#define I2C_CR2_ITEVTEN               9
+#define I2C_CR2_ITBUFEN               10
+#define I2C_CR2_DMAEN                 11
+#define I2C_CR2_LAST                  12
+
+#define I2C_SR1_SB   				0
+#define I2C_SR1_ADDR 				1
+#define I2C_SR1_BTF   				2
+#define I2C_SR1_ADD10   			3
+#define I2C_SR1_STOPF   			4
+#define I2C_SR1_RxNE   				6
+#define I2C_SR1_TxE   				7
+#define I2C_SR1_BERR				8
+#define I2C_SR1_ARLO				9
+#define I2C_SR1_AF   				10
+#define I2C_SR1_OVR   				11
+#define I2C_SR1_PECERR				12
+#define I2C_SR1_TIMEOUT				14
+#define I2C_SR1_SMBALERT			15
+
+#define I2C_SR2_MSL					0  		// Master/slave
+#define I2C_SR2_BUSY				1		// bus busy
+#define I2C_SR2_TRA					2   	// Transmitter/receiver
+#define I2C_SR2_GENCALL				4		// GENERAL CALL ADDR
+#define I2C_SR2_SMBDEFAULT			5		// SMBus device default address (Slave mode)
+#define I2C_SR2_SMBHOST				6		// SMBus host header (Slave mode)
+#define I2C_SR2_DAULF				7		// Dual flag (Slave mode)
+#define I2C_SR2_PEC					8		// Packet error checking register
+
+ // ------------------------------------------------- CLK DISABLE FOR I2Cx peripheral -----------------------------------------------------------------
+#define I2C1_PCLK_DI()					(RCC->APB1ENR &= ~(1<<21))
+#define I2C2_PCLK_DI() 					(RCC->APB1ENR &= ~(1<<22))
+#define I2C3_PCLK_DI()					(RCC->APB1ENR &= ~(1<<23))
+
+// ************************************************ CLK ENABLE MACRO FOR I2Cx ***********************************************************
+#define I2C1_PCLK_EN()					(RCC->APB1ENR |= (1<<21))
+#define I2C2_PCLK_EN() 					(RCC->APB1ENR |= (1<<22))
+#define I2C3_PCLK_EN()					(RCC->APB1ENR |= (1<<23))
+
+
+
 #include "stm32f407_driver.h"
 #include "stm32f407_spi_driver.h"
+#include "STM32f407_I2C_driver.h"
 #endif /* STM32F407XX_H_ */
 
 
